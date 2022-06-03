@@ -1,7 +1,9 @@
 package com.example.listviewpractice;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,6 +45,24 @@ Button btn;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog a=new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Delete Recod")
+                        .setMessage("Do you really want to deete this task!")
+                        .setCancelable(false)
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                friendlist.remove(i);
+                                arrayAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
                 Toast.makeText(MainActivity.this,friendlist.get(i), Toast.LENGTH_SHORT).show();
             }
         });
